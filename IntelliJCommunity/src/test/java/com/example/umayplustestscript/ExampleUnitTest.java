@@ -88,7 +88,6 @@ public class ExampleUnitTest {
         }
 
 
-
         MobileElement dateMonth = null;
 
         for (int i = 0; i < 12; i++) {
@@ -117,8 +116,6 @@ public class ExampleUnitTest {
         }else {
             dateMonth.click();
         }
-
-
 
 
         MobileElement el9 = (MobileElement) driver.findElementById("com.aim.android.umay:id/ok");
@@ -169,9 +166,35 @@ public class ExampleUnitTest {
         MobileElement el28 = (MobileElement) driver.findElementById("com.aim.android.umay:id/flClose");
         el28.click();
 
+    }
+    
+    @Test
+    public void applyCard_incompleteForm_validationMessage()
+    {
+        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+
+        MobileElement el1 = (MobileElement) driver.findElementById("com.aim.android.umay:id/iconRegister");
+        el1.click();
+
+        MobileElement closePopup = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View[2]/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]");
+        closePopup.click();
+
+        MobileElement el2 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText");
+        el2.sendKeys("ทดสอบสาม");
 
 
-//        com.aim.android.umay:id/textCreditAvailable
+        (new TouchAction(driver))
+                .press(PointOption.point(720, 2330))
+                .moveTo(PointOption.point(697, 105))
+                .release()
+                .perform();
+
+
+        MobileElement el3 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View[1]/android.view.View[3]/android.view.View/android.view.View/android.view.View/android.widget.CheckBox");
+        el3.click();
+
+        MobileElement validationMessage = (MobileElement) driver.findElementByXPath(
+            "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]/android.view.View/android.view.View/android.view.View/android.view.View[3]/android.view.View/android.view.ViewBREN");
     }
 
     @After
