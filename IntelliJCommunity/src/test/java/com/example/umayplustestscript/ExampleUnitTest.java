@@ -18,9 +18,9 @@ public class ExampleUnitTest {
     @Before
     public void setUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability("deviceName", "emulator-5554");
+//        desiredCapabilities.setCapability("deviceName", "emulator-5554");
         desiredCapabilities.setCapability("platformName", "android");
-        desiredCapabilities.setCapability("app", "C:\\Users\\Phongsakorn\\Desktop\\umay_plus_2.8.0.apk");
+//        desiredCapabilities.setCapability("app", "C:\\Users\\Phongsakorn\\Desktop\\umay_plus_2.8.0.apk");
         desiredCapabilities.setCapability("autoGrantPermissions", true);
         desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
 
@@ -35,7 +35,7 @@ public class ExampleUnitTest {
     @Test
     public void sampleTest() throws InterruptedException {
 //      Thread.sleep(10000);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
         MobileElement loginButton = (MobileElement) driver.findElementById("com.aim.android.umay:id/iconLogin");
         loginButton.click();
