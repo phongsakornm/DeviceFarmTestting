@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +27,9 @@ public class ExampleUnitTest {
     public void setUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("automationName", "Espresso");
+        DesiredCapabilities.android();
+        //desiredCapabilities.setCapability("appWaitDuration", 120000);
+        //desiredCapabilities.setCapability("appWaitActivity", "com.aim.android.umay.activitys.SplashScreenActivity");
         desiredCapabilities.setCapability("deviceName", "emulator-5554");
         desiredCapabilities.setCapability("platformName", "android");
         desiredCapabilities.setCapability("app", "C:\\Users\\Phongsakorn\\Desktop\\umay_plus_2.8.0.apk");
@@ -43,7 +47,7 @@ public class ExampleUnitTest {
     @Test
     public void sampleTest() throws InterruptedException {
 //      Thread.sleep(10000);
-        driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
         MobileElement loginButton = (MobileElement) driver.findElementById("com.aim.android.umay:id/iconLogin");
         loginButton.click();
@@ -200,34 +204,42 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void login_complete_espresso(){
+    public void login_complete_espresso() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
-        MobileElement loginButton = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.AppCompatImageView[2]");
-        loginButton.click();
+//        Thread.sleep(5000);
 
-        MobileElement el1 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/com.aim.android.umay.views.NormalEditTextView");
-        el1.sendKeys("HHHH0505");
+        MobileElement _loginButton = (MobileElement) driver.findElementById("com.aim.android.umay:id/iconLogin");
+        _loginButton.click();
 
-        MobileElement el2 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/com.aim.android.umay.views.NormalEditTextView");
-        el2.sendKeys("Hhhh55555");
 
-        MobileElement el3 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[3]");
-        el3.click();
-
-        MobileElement el4 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/com.aim.android.umay.views.NormalEditTextView");
+        MobileElement el2 = (MobileElement) driver.findElementById("com.aim.android.umay:id/editUser");
+        el2.sendKeys("HHHH0505");
+        MobileElement el3 = (MobileElement) driver.findElementById("com.aim.android.umay:id/editPass");
+        el3.sendKeys("Hhhh55555");
+        MobileElement el4 = (MobileElement) driver.findElementById("com.aim.android.umay:id/flLogin");
         el4.click();
 
-        MobileElement datePicker = (MobileElement) driver.findElementById("android:id/content");
+        MobileElement editBirthDate = (MobileElement) driver.findElementById("com.aim.android.umay:id/editBirthDate");
+        editBirthDate.click();
+
+
+
+        //MobileElement datePicker = (MobileElement) driver.findElementById("com.aim.android.umay:id/day_picker_selected_date_layout");
+        MobileElement _datePicker = (MobileElement) driver.findElementById("android:id/content");
+        //MobileElement _datePicker = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout");
 
         ImmutableMap<String, Object> params = ImmutableMap.of(
-                "element",datePicker,
+                "element", _datePicker,
                 "year", "2510",
                 "monthOfYear", "7",
                 "dayOfMonth", "18"
         );
 
         driver.executeScript("mobile: setDate", params);
+
+        MobileElement cancelDateButton = (MobileElement) driver.findElementById("com.aim.android.umay:id/cancel");
+        cancelDateButton.click();
     }
 
     public WebElement scrollToAnElementByText(
