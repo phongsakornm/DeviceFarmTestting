@@ -1,4 +1,7 @@
 package com.example.umayplustestscript;
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -8,7 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class ExampleUnitTest {
@@ -18,9 +25,10 @@ public class ExampleUnitTest {
     @Before
     public void setUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-//        desiredCapabilities.setCapability("deviceName", "emulator-5554");
+        desiredCapabilities.setCapability("automationName", "Espresso");
+        desiredCapabilities.setCapability("deviceName", "emulator-5554");
         desiredCapabilities.setCapability("platformName", "android");
-//        desiredCapabilities.setCapability("app", "C:\\Users\\Phongsakorn\\Desktop\\umay_plus_2.8.0.apk");
+        desiredCapabilities.setCapability("app", "C:\\Users\\Phongsakorn\\Desktop\\umay_plus_2.8.0.apk");
         desiredCapabilities.setCapability("autoGrantPermissions", true);
         desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
 
@@ -35,11 +43,10 @@ public class ExampleUnitTest {
     @Test
     public void sampleTest() throws InterruptedException {
 //      Thread.sleep(10000);
-        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
 
         MobileElement loginButton = (MobileElement) driver.findElementById("com.aim.android.umay:id/iconLogin");
         loginButton.click();
-
 
         MobileElement el2 = (MobileElement) driver.findElementById("com.aim.android.umay:id/editUser");
         el2.sendKeys("HHHH0505");
@@ -74,8 +81,8 @@ public class ExampleUnitTest {
             }
 
             (new TouchAction(driver))
-                .press(PointOption.point(679, 1229))
-                .moveTo(PointOption.point(685, 1809))
+                .press(PointOption.point(540, 1220))
+                .moveTo(PointOption.point(540, 1558))
                 .release()
                 .perform();
         }
@@ -92,7 +99,8 @@ public class ExampleUnitTest {
 
         for (int i = 0; i < 12; i++) {
             try {
-                dateMonth = (MobileElement) driver.findElementByAccessibilityId("18 July 1967");
+                dateMonth = (MobileElement) driver.findElementByAccessibilityId("18 กรกฎาคม 1967");
+//                dateMonth = (MobileElement) driver.findElementByAccessibilityId("18 July 1967");
             }
             catch(Exception e) {
                 dateMonth = null;
@@ -104,8 +112,8 @@ public class ExampleUnitTest {
             }
 
             (new TouchAction(driver))
-                    .press(PointOption.point(712, 1144))
-                    .moveTo(PointOption.point(699, 1893))
+                    .press(PointOption.point(535, 1106))
+                    .moveTo(PointOption.point(540, 1418))
                     .release()
                     .perform();
         }
@@ -167,7 +175,7 @@ public class ExampleUnitTest {
         el28.click();
 
     }
-    
+
     @Test
     public void applyCard_incompleteForm_validationMessage()
     {
@@ -179,22 +187,73 @@ public class ExampleUnitTest {
         MobileElement closePopup = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View[2]/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]");
         closePopup.click();
 
+        // Enter First Name
         MobileElement el2 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText");
         el2.sendKeys("ทดสอบสาม");
 
+        // Tick the Accept Checkbox
+        MobileElement checkbox = (MobileElement)this.scrollToAnElementById(driver, "cbxAcceptApplyShortForm");
+        checkbox.click();
 
-        (new TouchAction(driver))
-                .press(PointOption.point(720, 2330))
-                .moveTo(PointOption.point(697, 105))
-                .release()
-                .perform();
+        // Check for the Surname validation message
+        MobileElement surnameValidation = (MobileElement) this.scrollToAnElementByText(driver, "กรุณาระบุ นามสกุล ค่ะ");
+    }
 
+    @Test
+    public void login_complete_espresso(){
+        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
-        MobileElement el3 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View[1]/android.view.View[3]/android.view.View/android.view.View/android.view.View/android.widget.CheckBox");
+        MobileElement loginButton = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.AppCompatImageView[2]");
+        loginButton.click();
+
+        MobileElement el1 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/com.aim.android.umay.views.NormalEditTextView");
+        el1.sendKeys("HHHH0505");
+
+        MobileElement el2 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/com.aim.android.umay.views.NormalEditTextView");
+        el2.sendKeys("Hhhh55555");
+
+        MobileElement el3 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[3]");
         el3.click();
 
-        MobileElement validationMessage = (MobileElement) driver.findElementByXPath(
-            "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]/android.view.View/android.view.View/android.view.View/android.view.View[3]/android.view.View/android.view.ViewBREN");
+        MobileElement el4 = (MobileElement) driver.findElementByXPath("/com.android.internal.policy.DecorView/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v7.widget.FitWindowsLinearLayout/android.support.v7.widget.ContentFrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/com.aim.android.umay.views.NormalEditTextView");
+        el4.click();
+
+        MobileElement datePicker = (MobileElement) driver.findElementById("android:id/content");
+
+        ImmutableMap<String, Object> params = ImmutableMap.of(
+                "element",datePicker,
+                "year", "2510",
+                "monthOfYear", "7",
+                "dayOfMonth", "18"
+        );
+
+        driver.executeScript("mobile: setDate", params);
+    }
+
+    public WebElement scrollToAnElementByText(
+            AppiumDriver<WebElement> driver,
+            String text) {
+        return driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(" +
+                        "new UiSelector().text(\"" + text + "\"));"));
+    }
+
+    public WebElement scrollToAnElementByClassName(
+            AppiumDriver<WebElement> driver,
+            String className)
+    {
+        return driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(" +
+                        "new UiSelector().className(\"" + className + "\"));"));
+    }
+
+    public WebElement scrollToAnElementById(
+            AppiumDriver<WebElement> driver,
+            String id)
+    {
+        return driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(" +
+                        "new UiSelector().resourceId(\"" + id + "\"));"));
     }
 
     @After
