@@ -8,11 +8,11 @@ https://www.jetbrains.com/idea/download/#section=windows
 
 # Create Project
 
-![introduction-application-template](img/create-project-01.jpg)
+![create-project-01](img/create-project-01.jpg)
 
 
 
-![introduction-application-template](img/create-project-02.jpg)
+![create-project-02](img/create-project-02.jpg)
 
 
 
@@ -163,7 +163,7 @@ zip.xml
 
 # Build Project
 
-![introduction-application-template](img/build-project-01.jpg)
+![build-project-01](img/build-project-01.jpg)
 
 
 
